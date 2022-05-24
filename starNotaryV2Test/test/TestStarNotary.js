@@ -56,7 +56,7 @@ it("lets user2 buy a star, if it is put up for sale", async () => {
   assert.equal(await instance.ownerOf.call(starId), user2)
 })
 
-it("lets user2 buy a star and decreases its balance in ether", async () => {
+it("lets user2 buy a star and decreases its balance in ether", async (done) => {
   let instance = await StarNotary.deployed()
   let user1 = accounts[1]
   let user2 = accounts[2]
@@ -72,4 +72,5 @@ it("lets user2 buy a star and decreases its balance in ether", async () => {
   let value =
     Number(balanceOfUser2BeforeTransaction) - Number(balanceAfterUser2BuysStar)
   assert.equal(value, starPrice)
+  done()
 })
