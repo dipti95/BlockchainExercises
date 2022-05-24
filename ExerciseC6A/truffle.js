@@ -2,7 +2,7 @@ var HDWalletProvider = require("truffle-hdwallet-provider")
 
 // Be sure to match this mnemonic with that in Ganache!
 var mnemonic =
-  "arena push runway actor cycle absurd nothing aspect ignore comic category magic"
+  "canvas motion orchard want live maid mail actor army illegal kitten skin"
 
 module.exports = {
   networks: {
