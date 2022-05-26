@@ -6,7 +6,8 @@ contract ExerciseC6A {
     /*                                       DATA VARIABLES                                     */
     /********************************************************************************************/
 
-
+   uint256 constant M =2;
+   
     struct UserProfile {
         bool isRegistered;
         bool isAdmin;
@@ -17,6 +18,7 @@ contract ExerciseC6A {
 
 
     bool private operational = true; 
+    address[] multiCalls = new address[](0);
     /********************************************************************************************/
     /*                                       EVENT DEFINITIONS                                  */
     /********************************************************************************************/
@@ -131,10 +133,28 @@ contract ExerciseC6A {
                             ) 
                             external
                      
-                      
-                            requireContractOwner 
+                        
     {
-        operational = mode;
+       require(mode != operational, "New mode must be different from existing mode");
+        require(userProfiles[msg.sender].isAdmin, "Caller is not an admin");
+      
+        bool isDuplicate = false;
+        // To Avoid double call
+        
+        for(uint c=0; c<multiCalls.length; c++) {
+            if (multiCalls[c] == msg.sender) {
+                isDuplicate = true;
+                break;
+            }
+        }
+        //this require some cost
+        require(!isDuplicate, "Caller has already called this function.");
+
+        multiCalls.push(msg.sender);
+        if (multiCalls.length >= M) {
+            operational = mode;      
+            multiCalls = new address[](0);      
+        }
 
      //  dont need requireIsOperational modifier in setOperatingStatus function => because of lockout bug
     }
