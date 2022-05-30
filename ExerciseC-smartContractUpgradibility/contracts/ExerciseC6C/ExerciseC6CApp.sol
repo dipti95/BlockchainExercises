@@ -12,7 +12,7 @@ contract ExerciseC6CApp {
 
 
     address private contractOwner;              // Account used to deploy contract
-
+    ExerciseC6C exerciseC6C;
     modifier requireContractOwner()
     {
         require(msg.sender == contractOwner, "Caller is not contract owner");
@@ -55,13 +55,19 @@ contract ExerciseC6CApp {
                                 external
                                 requireContractOwner
     {
-        updateEmployee(
+       exerciseC6C.updateEmployee(
                         id,
                         amount,
                         calculateBonus(amount)
         );
     }
 
+    
+                              
+
+} 
+
+contract ExerciseC6C {
     function updateEmployee
                                 (
                                     string id,
@@ -69,10 +75,6 @@ contract ExerciseC6CApp {
                                     uint256 bonus
 
                                 )
-                                internal
-                                {
-                                    
-                                }
-
+                                external;
 }
 
